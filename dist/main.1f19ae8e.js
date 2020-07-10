@@ -28382,6 +28382,8 @@ var GroceryItems = /*#__PURE__*/function (_Component) {
   _createClass(GroceryItems, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
       return /*#__PURE__*/_react.default.createElement("div", {
         id: "grocery-items"
       }, /*#__PURE__*/_react.default.createElement("table", {
@@ -28389,7 +28391,11 @@ var GroceryItems = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/_react.default.createElement("tbody", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", null), /*#__PURE__*/_react.default.createElement("th", null, "Item Price"), /*#__PURE__*/_react.default.createElement("th", null, "Item Name")), GROCERY_ITEMS.map(function (item, index) {
         return /*#__PURE__*/_react.default.createElement("tr", {
           id: index
-        }, /*#__PURE__*/_react.default.createElement("td", null, /*#__PURE__*/_react.default.createElement("button", null, "Add to cart")), /*#__PURE__*/_react.default.createElement("td", null, item.price), /*#__PURE__*/_react.default.createElement("td", null, item.name));
+        }, /*#__PURE__*/_react.default.createElement("td", null, /*#__PURE__*/_react.default.createElement("button", {
+          onClick: function onClick() {
+            return _this.props.addToCart(item);
+          }
+        }, "Add")), /*#__PURE__*/_react.default.createElement("td", null, item.price), /*#__PURE__*/_react.default.createElement("td", null, item.name));
       }))));
     }
   }]);
@@ -28446,9 +28452,18 @@ var GroceryCart = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(GroceryCart, [{
+    key: "total",
+    value: function total() {
+      return this.props.items.reduce(function (total, item) {
+        return total + item.price;
+      }, 0);
+    }
+  }, {
     key: "render",
     value: function render() {
-      if (this.props.items) {
+      var _this = this;
+
+      if (this.props.items.length === 0) {
         return /*#__PURE__*/_react.default.createElement("div", {
           id: "grocery-cart"
         }, /*#__PURE__*/_react.default.createElement("p", null, "Cart is empty"));
@@ -28458,11 +28473,15 @@ var GroceryCart = /*#__PURE__*/function (_Component) {
         id: "grocery-cart"
       }, /*#__PURE__*/_react.default.createElement("table", {
         border: "1"
-      }, /*#__PURE__*/_react.default.createElement("tbody", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", null, "Item Price"), /*#__PURE__*/_react.default.createElement("th", null, "Item Name")), this.props.items.map(function (item, index) {
+      }, /*#__PURE__*/_react.default.createElement("tbody", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", null), /*#__PURE__*/_react.default.createElement("th", null, "Item Price"), /*#__PURE__*/_react.default.createElement("th", null, "Item Name")), this.props.items.map(function (item, index) {
         return /*#__PURE__*/_react.default.createElement("tr", {
-          id: index
-        }, /*#__PURE__*/_react.default.createElement("td", null, /*#__PURE__*/_react.default.createElement("button", null, "Add to cart")), /*#__PURE__*/_react.default.createElement("td", null, item.price), /*#__PURE__*/_react.default.createElement("td", null, item.name));
-      }))));
+          key: index
+        }, /*#__PURE__*/_react.default.createElement("td", null, /*#__PURE__*/_react.default.createElement("button", {
+          onClick: function onClick() {
+            return _this.props.removeFromCart(index);
+          }
+        }, "Remove")), /*#__PURE__*/_react.default.createElement("td", null, item.price), /*#__PURE__*/_react.default.createElement("td", null, item.name));
+      }))), /*#__PURE__*/_react.default.createElement("p", null, "Total: \u20AC", this.total()));
     }
   }]);
 
@@ -28491,6 +28510,18 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28526,18 +28557,41 @@ var App = /*#__PURE__*/function (_Component) {
     _this.state = {
       cart: []
     };
+    _this.addToCart = _this.addToCart.bind(_assertThisInitialized(_this));
+    _this.removeFromCart = _this.removeFromCart.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
+    key: "addToCart",
+    value: function addToCart(item) {
+      var cart = [].concat(_toConsumableArray(this.state.cart), [item]);
+      this.setState({
+        cart: cart
+      });
+    }
+  }, {
+    key: "removeFromCart",
+    value: function removeFromCart(index) {
+      var cart = _toConsumableArray(this.state.cart);
+
+      cart.splice(index, 1);
+      this.setState({
+        cart: cart
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/_react.default.createElement("div", {
         id: "app-container"
       }, /*#__PURE__*/_react.default.createElement("h1", null, "My React App Template"), /*#__PURE__*/_react.default.createElement("p", null, "Welcome to my React App Template "), /*#__PURE__*/_react.default.createElement("div", {
         id: "grocery-container"
-      }, /*#__PURE__*/_react.default.createElement(_GroceryItems.default, null), /*#__PURE__*/_react.default.createElement(_GroceryCart.default, {
-        items: this.state.cart
+      }, /*#__PURE__*/_react.default.createElement(_GroceryItems.default, {
+        addToCart: this.addToCart
+      }), /*#__PURE__*/_react.default.createElement(_GroceryCart.default, {
+        items: this.state.cart,
+        removeFromCart: this.removeFromCart
       })));
     }
   }]);
@@ -28618,7 +28672,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"main.js":[function(require,module,exports) {
+},{"./background.jpg":[["background.9e15dd99.jpg","background.jpg"],"background.jpg"],"_css_loader":"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"main.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireWildcard(require("react"));

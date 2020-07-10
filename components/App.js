@@ -9,6 +9,20 @@ export default class App extends Component {
     this.state = {
       cart: [],
     };
+
+    this.addToCart = this.addToCart.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
+  }
+
+  addToCart(item) {
+    const cart = [...this.state.cart, item];
+    this.setState({ cart });
+  }
+
+  removeFromCart(index) {
+    const cart = [...this.state.cart];
+    cart.splice(index, 1);
+    this.setState({ cart });
   }
 
   render() {
@@ -17,8 +31,11 @@ export default class App extends Component {
         <h1>My React App Template</h1>
         <p>Welcome to my React App Template </p>
         <div id="grocery-container">
-          <GroceryItems />
-          <GroceryCart items={this.state.cart} />
+          <GroceryItems addToCart={this.addToCart} />
+          <GroceryCart
+            items={this.state.cart}
+            removeFromCart={this.removeFromCart}
+          />
         </div>
       </div>
     );

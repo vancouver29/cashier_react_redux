@@ -33,7 +33,9 @@ export default class GroceryItems extends Component {
               return (
                 <tr id={index}>
                   <td>
-                    <button>Add to cart</button>
+                    <button onClick={() => this.props.addToCart(item)}>
+                      Add
+                    </button>
                   </td>
                   <td>{item.price}</td>
                   <td>{item.name}</td>
