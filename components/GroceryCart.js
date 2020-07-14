@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { removeFromCart } from "../reducers/actions";
 
 class GroceryCart extends Component {
   total() {
@@ -55,10 +56,11 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     removeFromCart: (index) => {
-      dispatch({
-        type: "REMOVE_FROM_CART",
-        index,
-      });
+      dispatch(
+        // {type: "REMOVE_FROM_CART",
+        // index,}
+        removeFromCart(index)
+      );
     },
   };
 }
