@@ -31856,6 +31856,96 @@ function mapDispatchToProps(dispatch) {
 var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GroceryCart);
 
 exports.default = _default;
+},{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js"}],"components/History.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRedux = require("react-redux");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var History = /*#__PURE__*/function (_Component) {
+  _inherits(History, _Component);
+
+  var _super = _createSuper(History);
+
+  function History() {
+    _classCallCheck(this, History);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(History, [{
+    key: "total",
+    value: function total() {
+      return this.props.items.reduce(function (total, item) {
+        return total + item.price;
+      }, 0);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/_react.default.createElement("div", {
+        id: "history-controls"
+      }, /*#__PURE__*/_react.default.createElement("button", {
+        onClick: this.props.undo
+      }, "undo"), /*#__PURE__*/_react.default.createElement("button", {
+        onClick: this.props.redo
+      }, "redo"));
+    }
+  }]);
+
+  return History;
+}(_react.Component);
+
+function mapDispathToProps(dispatch) {
+  return {
+    undo: function undo() {
+      return dispatch({
+        type: "UNDO"
+      });
+    },
+    redo: function redo() {
+      return dispatch({
+        type: "REDO"
+      });
+    }
+  };
+}
+
+var _default = (0, _reactRedux.connect)(null, mapDispathToProps)(History);
+
+exports.default = _default;
 },{"react":"node_modules/react/index.js","react-redux":"node_modules/react-redux/es/index.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
@@ -31869,6 +31959,8 @@ var _react = _interopRequireWildcard(require("react"));
 var _GroceryItems = _interopRequireDefault(require("./GroceryItems"));
 
 var _GroceryCart = _interopRequireDefault(require("./GroceryCart"));
+
+var _History = _interopRequireDefault(require("./History"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31914,7 +32006,7 @@ var App = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/_react.default.createElement("div", {
         id: "app-container"
-      }, /*#__PURE__*/_react.default.createElement("h1", null, "My React App Template"), /*#__PURE__*/_react.default.createElement("p", null, "Welcome to my React App Template "), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement("h1", null, "Grocery Cart"), /*#__PURE__*/_react.default.createElement(_History.default, null), /*#__PURE__*/_react.default.createElement("div", {
         id: "grocery-container"
       }, /*#__PURE__*/_react.default.createElement(_GroceryItems.default, null), /*#__PURE__*/_react.default.createElement(_GroceryCart.default, null)));
     }
@@ -31924,7 +32016,7 @@ var App = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 
 exports.default = App;
-},{"react":"node_modules/react/index.js","./GroceryItems":"components/GroceryItems.js","./GroceryCart":"components/GroceryCart.js"}],"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./GroceryItems":"components/GroceryItems.js","./GroceryCart":"components/GroceryCart.js","./History":"components/History.js"}],"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -32004,12 +32096,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -32021,6 +32107,12 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.it
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var GROCERY_ITEMS = [{
   name: "Sliced bacon",
@@ -32075,16 +32167,53 @@ var cartReducer = function cartReducer(state, action) {
   if (state === undefined) {
     return {
       forSale: GROCERY_ITEMS,
-      cart: []
+      cart: [],
+      history: [[]],
+      historyIndex: 0
     };
   }
 
   switch (action.type) {
+    case "UNDO":
+      {
+        var historyIndex = state.historyIndex - 1;
+        historyIndex = Math.max(historyIndex, 0);
+        return _objectSpread(_objectSpread({}, state), {}, {
+          cart: state.history[historyIndex],
+          historyIndex: historyIndex
+        });
+      }
+
+    case "REDO":
+      {
+        var _historyIndex = state.historyIndex + 1;
+
+        _historyIndex = Math.min(_historyIndex, state.history.length - 1);
+        return _objectSpread(_objectSpread({}, state), {}, {
+          cart: state.history[_historyIndex],
+          historyIndex: _historyIndex
+        });
+      }
+
     case "ADD_TO_CART":
       {
-        var cart = [].concat(_toConsumableArray(state.cart), [action.item]);
+        var cart = [].concat(_toConsumableArray(state.cart), [action.item]); // copy all of the history
+
+        var history = _toConsumableArray(state.history); // chop off all recorded future history that happened after this
+        // point in time. Performing actions in the past destroys all of
+        // the previous future. You can't go back to the Future
+
+
+        history.splice(state.historyIndex + 1, state.history.length); // add the current cart state to the end of the history array
+
+        history.push(cart); // mark our historyIndex as being the last thing in the array
+
+        var _historyIndex2 = history.length - 1;
+
         return _objectSpread(_objectSpread({}, state), {}, {
-          cart: cart
+          cart: cart,
+          history: history,
+          historyIndex: _historyIndex2
         });
       }
 
@@ -32092,10 +32221,26 @@ var cartReducer = function cartReducer(state, action) {
       {
         var _cart = _toConsumableArray(state.cart);
 
-        _cart.splice(action.index, 1);
+        _cart.splice(action.index, 1); // copy all of the history
+
+
+        var _history = _toConsumableArray(state.history); // chop off all recorded future history that happened after this
+        // point in time. Performing actions in the past destroys all of
+        // the previous future. You can't go back to the Future
+
+
+        _history.splice(state.historyIndex + 1, state.history.length); // add the current cart state to the end of the history array
+
+
+        _history.push(_cart); // mark our historyIndex as being the last thing in the array
+
+
+        var _historyIndex3 = _history.length - 1;
 
         return _objectSpread(_objectSpread({}, state), {}, {
-          cart: _cart
+          cart: _cart,
+          history: _history,
+          historyIndex: _historyIndex3
         });
       }
 
